@@ -1,6 +1,10 @@
 extern crate rotor;
 extern crate rotor_http;
 
+#[macro_use]
+extern crate log;
+extern crate env_logger;
+
 use std::time::Duration;
 
 use rotor::{Scope, Time};
@@ -111,6 +115,8 @@ impl Server for HelloWorld {
 }
 
 fn main() {
+    env_logger::init().unwrap();
+    info!("Logger is running.");
     println!("Starting http server on http://127.0.0.1:3000/");
     let event_loop = rotor::Loop::new(&rotor::Config::new()).unwrap();
     let mut loop_inst = event_loop.instantiate(Context {
